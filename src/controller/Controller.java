@@ -67,7 +67,7 @@ public abstract class Controller {
             LocalDate startDen, LocalDate slutDen, Patient patient, Lægemiddel lægemiddel,
             LocalTime[] klokkeSlet, double[] antalEnheder) {
 
-        if (startDen.isAfter(slutDen)) {
+        if (!startDen.isAfter(slutDen)) {
             if (klokkeSlet.length == antalEnheder.length) {
                 DagligSkæv dagligSkæv = new DagligSkæv(startDen, slutDen, lægemiddel);
                 for (int i = 0; i < klokkeSlet.length; i++) {

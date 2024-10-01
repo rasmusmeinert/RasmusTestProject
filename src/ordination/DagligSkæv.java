@@ -38,7 +38,7 @@ public class DagligSkæv extends Ordination {
         for (Dosis dosis : doser) {
             totalDosis += dosis.getAntal();
         }
-        return totalDosis / antalDage();
+        return totalDosis;
     }
 
     /**
