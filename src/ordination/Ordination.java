@@ -23,6 +23,9 @@ public abstract class Ordination {
         return slutDato;
     }
 
+    public Lægemiddel getLægemiddel() {
+        return lægemiddel;
+    }
     /**
      * Returner antal hele dage mellem startdato og slutdato
      * (begge dage inklusive).
@@ -44,4 +47,5 @@ public abstract class Ordination {
 
     /** Returner ordinationstypen som en String. */
     public abstract String getType();
+
 }
