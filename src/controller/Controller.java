@@ -36,8 +36,13 @@ public abstract class Controller {
     public static DagligFast opretDagligFastOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
-
-        return null;
+        DagligFast dagligFast = new DagligFast(startDato, slutDato, lægemiddel);
+        dagligFast.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
+        dagligFast.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
+        dagligFast.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
+        dagligFast.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
+        patient.tilføjOrdination(dagligFast);
+        return dagligFast;
     }
 
     /**
@@ -73,7 +78,9 @@ public abstract class Controller {
         return 0;
     }
 
-    /** Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel. */
+    /**
+     * Returner antal ordinationer for det givne vægtinterval og det givne lægemiddel.
+     */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
 
