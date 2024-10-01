@@ -36,13 +36,17 @@ public abstract class Controller {
     public static DagligFast opretDagligFastOrdination(
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
-        DagligFast dagligFast = new DagligFast(startDato, slutDato, lægemiddel);
-        dagligFast.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
-        dagligFast.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
-        dagligFast.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
-        dagligFast.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
-        patient.tilføjOrdination(dagligFast);
-        return dagligFast;
+        if (startDato.isAfter(slutDato)) {
+            throw new IllegalArgumentException("StartDato er efter SlutDato");
+        } else {
+            DagligFast dagligFast = new DagligFast(startDato, slutDato, lægemiddel);
+            dagligFast.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
+            dagligFast.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
+            dagligFast.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
+            dagligFast.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
+            patient.tilføjOrdination(dagligFast);
+            return dagligFast;
+        }
     }
 
     /**
