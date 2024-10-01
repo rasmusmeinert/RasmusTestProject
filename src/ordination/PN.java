@@ -37,7 +37,7 @@ public class PN extends Ordination{
     }
     @Override
     public double døgnDosis() {
-        return ((antalGangeAnvendt()*getAntalEnheder()) / (ChronoUnit.DAYS.between(getStartDato(), getSlutDato())));
+        return ((antalGangeAnvendt()*getAntalEnheder()) / (antalDage()));
     }
 
     @Override

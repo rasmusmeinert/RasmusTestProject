@@ -45,13 +45,13 @@ public abstract class Controller {
         if (startDato.isAfter(slutDato)) {
             throw new IllegalArgumentException("StartDato er efter SlutDato");
         } else {
-            DagligFast dagligFast = new DagligFast(startDato, slutDato, lægemiddel);
-            dagligFast.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
-            dagligFast.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
-            dagligFast.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
-            dagligFast.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
-            patient.tilføjOrdination(dagligFast);
-            return dagligFast;
+            DagligFast dagligFastOrdination = new DagligFast(startDato, slutDato, lægemiddel);
+            dagligFastOrdination.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
+            dagligFastOrdination.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
+            dagligFastOrdination.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
+            dagligFastOrdination.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
+            patient.tilføjOrdination(dagligFastOrdination);
+            return dagligFastOrdination;
         }
     }
 
@@ -149,7 +149,7 @@ public abstract class Controller {
         opretPNOrdination(LocalDate.parse("2019-01-20"), LocalDate.parse("2019-01-25"),
                 ib, fucidin, 5);
 
-        opretPNOrdination(LocalDate.parse("2019-01-01"), LocalDate.parse("2019.01-12"),
+        opretPNOrdination(LocalDate.parse("2019-01-01"), LocalDate.parse("2019-01-12"),
                 jane, paracetamol, 123);
 
         opretDagligFastOrdination(LocalDate.parse("2019-01-10"), LocalDate.parse("2019-01-12"),
