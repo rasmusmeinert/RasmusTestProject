@@ -6,6 +6,14 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private final LocalDate startDato;
     private final LocalDate slutDato;
+    private final Lægemiddel lægemiddel;
+
+
+    public Ordination(LocalDate startDato, LocalDate slutDato, Lægemiddel lægemiddel) {
+        this.startDato = startDato;
+        this.slutDato = slutDato;
+        this.lægemiddel = lægemiddel;
+    }
 
     public LocalDate getStartDato() {
         return startDato;
