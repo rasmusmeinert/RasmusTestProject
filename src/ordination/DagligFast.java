@@ -14,6 +14,10 @@ public class DagligFast extends Ordination {
         doser[i] = dosis;
     }
 
+    public Dosis[] getDoser() {
+        return doser;
+    }
+
     @Override
     public double samletDosis() {
         return antalDage() * døgnDosis();
