@@ -24,6 +24,10 @@ public class Patient {
         return vægt;
     }
 
+    public ArrayList<Ordination> getOrdinationer() {
+        return ordinationer;
+    }
+
     @Override
     public String toString() {
         return navn + "  " + cprNr;
