@@ -67,7 +67,18 @@ public abstract class Controller {
             LocalDate startDen, LocalDate slutDen, Patient patient, Lægemiddel lægemiddel,
             LocalTime[] klokkeSlet, double[] antalEnheder) {
 
-        return null;
+        if (startDen.isAfter(slutDen)) {
+            if (klokkeSlet.length == antalEnheder.length) {
+                DagligSkæv dagligSkæv = new DagligSkæv(startDen, slutDen, lægemiddel);
+                for (int i = 0; i < klokkeSlet.length; i++) {
+                    dagligSkæv.tilføjDosis(new Dosis(klokkeSlet[i], antalEnheder[i]));
+                }
+                patient.tilføjOrdination(dagligSkæv);
+                return dagligSkæv;
+            } else
+                throw new IllegalArgumentException("Klokkeslet og antal enheder forskellige");
+        } else
+            throw new IllegalArgumentException("Startdato er efter slutdato");
     }
 
     /**
