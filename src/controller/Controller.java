@@ -89,8 +89,15 @@ public abstract class Controller {
      * (afhænger af patientens vægt).
      */
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
-
-        return 0;
+        if (patient.getVægt() <= 25){
+            return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnLet();
+        }
+        if (25 < patient.getVægt() && patient.getVægt() <= 120){
+            return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnNormal();
+        }
+        else {
+            return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnTung();
+        }
     }
 
     /**
