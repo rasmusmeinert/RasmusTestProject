@@ -76,6 +76,11 @@ public abstract class Controller {
      * kastes en IllegalArgumentException.
      */
     public static void anvendOrdinationPN(PN ordination, LocalDate dato) {
+        if (dato.isAfter(ordination.getSlutDato())) {
+            throw new IllegalArgumentException("Dato er efter slutDato");
+        } else {
+            ordination.anvendDosis(dato);
+        }
 
     }
 
