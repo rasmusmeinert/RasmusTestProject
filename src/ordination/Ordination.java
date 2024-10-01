@@ -6,13 +6,13 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private final LocalDate startDato;
     private final LocalDate slutDato;
-    private final Lægemiddel lægemiddel;
+    private final Lægemiddel laegemiddel;
 
 
-    public Ordination(LocalDate startDato, LocalDate slutDato, Lægemiddel lægemiddel) {
+    public Ordination(LocalDate startDato, LocalDate slutDato, Lægemiddel laegemiddel) {
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.lægemiddel = lægemiddel;
+        this.laegemiddel = laegemiddel;
     }
 
     public LocalDate getStartDato() {
@@ -23,9 +23,10 @@ public abstract class Ordination {
         return slutDato;
     }
 
-    public Lægemiddel getLægemiddel() {
-        return lægemiddel;
+    public Lægemiddel getLaegemiddel() {
+        return laegemiddel;
     }
+
     /**
      * Returner antal hele dage mellem startdato og slutdato
      * (begge dage inklusive).
@@ -39,13 +40,19 @@ public abstract class Ordination {
         return startDato.toString();
     }
 
-    /** Returner den totale dosis, der er givet i den periode, ordinationen er gyldig. */
+    /**
+     * Returner den totale dosis, der er givet i den periode, ordinationen er gyldig.
+     */
     public abstract double samletDosis();
 
-    /** Returner den gennemsnitlige dosis givet per dag. */
+    /**
+     * Returner den gennemsnitlige dosis givet per dag.
+     */
     public abstract double døgnDosis();
 
-    /** Returner ordinationstypen som en String. */
+    /**
+     * Returner ordinationstypen som en String.
+     */
     public abstract String getType();
 
 }
