@@ -71,7 +71,7 @@ public abstract class Controller {
             if (klokkeSlet.length == antalEnheder.length) {
                 DagligSkæv dagligSkæv = new DagligSkæv(startDen, slutDen, lægemiddel);
                 for (int i = 0; i < klokkeSlet.length; i++) {
-                    dagligSkæv.tilføjDosis(new Dosis(klokkeSlet[i], antalEnheder[i]));
+                    dagligSkæv.opretDosis(klokkeSlet[i], antalEnheder[i]);
                 }
                 patient.tilføjOrdination(dagligSkæv);
                 return dagligSkæv;
@@ -116,18 +116,6 @@ public abstract class Controller {
      */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
-
-        int antalOrdinationer = 0;
-        for (Patient patient : getAllPatienter()){
-            if (patient.getVægt() >= vægtStart && patient.getVægt() <= vægtSlut){
-               for (Ordination ordination : patient.getOrdinationer()){
-                   if (ordination.getLaegemiddel() == lægemiddel){
-                       antalOrdinationer ++;
-                   }
-               }
-            }
-            return antalOrdinationer;
-        }
 
         return 0;
     }
