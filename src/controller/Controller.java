@@ -46,10 +46,10 @@ public abstract class Controller {
             throw new IllegalArgumentException("StartDato er efter SlutDato");
         } else {
             DagligFast dagligFastOrdination = new DagligFast(startDato, slutDato, lægemiddel);
-            dagligFastOrdination.opretDosis(1,LocalTime.of(8,0),morgenAntal);
-            dagligFastOrdination.opretDosis(2,LocalTime.of(12,0),middagAntal);
-            dagligFastOrdination.opretDosis(3,LocalTime.of(17,0),aftenAntal);
-            dagligFastOrdination.opretDosis(4,LocalTime.of(23,0),natAntal);
+            dagligFastOrdination.opretDosis(1, LocalTime.of(8, 0), morgenAntal);
+            dagligFastOrdination.opretDosis(2, LocalTime.of(12, 0), middagAntal);
+            dagligFastOrdination.opretDosis(3, LocalTime.of(17, 0), aftenAntal);
+            dagligFastOrdination.opretDosis(4, LocalTime.of(23, 0), natAntal);
             patient.tilføjOrdination(dagligFastOrdination);
             return dagligFastOrdination;
         }
@@ -100,13 +100,12 @@ public abstract class Controller {
      * (afhænger af patientens vægt).
      */
     public static double anbefaletDosisPrDøgn(Patient patient, Lægemiddel lægemiddel) {
-        if (patient.getVægt() <= 25){
+        if (patient.getVægt() <= 25) {
             return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnLet();
         }
-        if (25 < patient.getVægt() && patient.getVægt() <= 120){
+        if (25 < patient.getVægt() && patient.getVægt() <= 120) {
             return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnNormal();
-        }
-        else {
+        } else {
             return patient.getVægt() * lægemiddel.getEnhedPrKgPrDøgnTung();
         }
     }
@@ -116,7 +115,17 @@ public abstract class Controller {
      */
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
-
+        int antalOrdinationer = 0;
+        for (Patient patient : getAllPatienter()) {
+            if (patient.getVægt() >= vægtStart && patient.getVægt() <= vægtSlut) {
+                for (Ordination ordination : patient.getOrdinationer()) {
+                    if (ordination.getLaegemiddel() == lægemiddel) {
+                        antalOrdinationer++;
+                    }
+                }
+            }
+            return antalOrdinationer;
+        }
         return 0;
     }
 
