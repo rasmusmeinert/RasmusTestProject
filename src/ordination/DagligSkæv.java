@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DagligSkæv extends Ordination {
-    // Instance fields
+    // Instance fields.
     private final List<Dosis> doser = new ArrayList<Dosis>();
 
     public DagligSkæv(LocalDate startDato, LocalDate slutDato, Lægemiddel lægemiddel) {

@@ -76,9 +76,9 @@ public abstract class Controller {
                 patient.tilføjOrdination(dagligSkæv);
                 return dagligSkæv;
             } else
-                throw new IllegalArgumentException("Klokkeslet og antal enheder forskellige");
+                throw new IllegalArgumentException("Klokkeslet og antal enheder forskellige.");
         } else
-            throw new IllegalArgumentException("Startdato er efter slutdato");
+            throw new IllegalArgumentException("Startdato er efter slutdato.");
     }
 
     /**
