@@ -1,6 +1,7 @@
 package ordination;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class DagligFast extends Ordination {
     private final Dosis[] doser = new Dosis[4];
@@ -10,8 +11,8 @@ public class DagligFast extends Ordination {
         super(startDato, slutDato, lægemiddel);
     }
 
-    public void setDosis(int i, Dosis dosis) {
-        doser[i] = dosis;
+    public void opretDosis(int i, LocalTime tidspunkt, double antal){
+        doser[i] = new Dosis(tidspunkt,antal);
     }
 
     public Dosis[] getDoser() {

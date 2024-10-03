@@ -46,10 +46,10 @@ public abstract class Controller {
             throw new IllegalArgumentException("StartDato er efter SlutDato");
         } else {
             DagligFast dagligFastOrdination = new DagligFast(startDato, slutDato, lægemiddel);
-            dagligFastOrdination.setDosis(0, new Dosis(LocalTime.of(8, 0), morgenAntal));
-            dagligFastOrdination.setDosis(1, new Dosis(LocalTime.of(12, 0), middagAntal));
-            dagligFastOrdination.setDosis(2, new Dosis(LocalTime.of(17, 0), aftenAntal));
-            dagligFastOrdination.setDosis(3, new Dosis(LocalTime.of(23, 0), natAntal));
+            dagligFastOrdination.opretDosis(1,LocalTime.of(8,0),morgenAntal);
+            dagligFastOrdination.opretDosis(2,LocalTime.of(12,0),middagAntal);
+            dagligFastOrdination.opretDosis(3,LocalTime.of(17,0),aftenAntal);
+            dagligFastOrdination.opretDosis(4,LocalTime.of(23,0),natAntal);
             patient.tilføjOrdination(dagligFastOrdination);
             return dagligFastOrdination;
         }
