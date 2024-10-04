@@ -19,7 +19,7 @@ class PNTest {
     }
 
     @Test
-    void samletDosis() {
+    void samletDosisTC1() {
         Patient Jens = new Patient("123412-4321","Jens Hansen", 120);
         Lægemiddel Paracetamol = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         PN Ordination1 = new PN( LocalDate.of(2024,12,10),LocalDate.of(2024,12,20),Paracetamol,5);
@@ -34,7 +34,7 @@ class PNTest {
         assertEquals(25,actualOutput,0.0001);
     }
     @Test
-    void samletDosis2() {
+    void samletDosisTC2() {
         Lægemiddel Paracetamol = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         PN Ordination2 = new PN( LocalDate.of(2024,12,10),LocalDate.of(2024,12,20),Paracetamol,5);
 
@@ -43,7 +43,7 @@ class PNTest {
     }
 
     @Test
-    void døgnDosis() {
+    void døgnDosisTC1() {
         Patient Jens = new Patient("123412-4321","Jens Hansen", 120);
         Lægemiddel Paracetamol = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         PN Ordination1 = new PN( LocalDate.of(2024,12,10),LocalDate.of(2024,12,20),Paracetamol,5);
@@ -59,7 +59,7 @@ class PNTest {
     }
 
     @Test
-    void døgnDosis1() {
+    void døgnDosisTC2() {
         Patient Jens = new Patient("123412-4321","Jens Hansen", 120);
         Lægemiddel Paracetamol = new Lægemiddel("Paracetamol",1,1.5,2,"ML");
         PN Ordination1 = new PN( LocalDate.of(2024,12,10),LocalDate.of(2024,12,20),Paracetamol,5);
