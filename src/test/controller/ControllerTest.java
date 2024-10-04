@@ -3,6 +3,7 @@ package test.controller;
 import controller.Controller;
 import ordination.*;
 import org.junit.jupiter.api.Test;
+import storage.Storage;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -151,7 +152,9 @@ class ControllerTest {
         assertEquals(280,anbefaletDosis);
     }
     @Test
-    void antalOrdinationerPrVægtPrLægemiddel() {
+    void antalOrdinationerPrVægtPrLægemiddelTC1() {
+        Controller.setStorage(new Storage());
+
         Lægemiddel paracetamol = Controller.opretLægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
         Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
@@ -163,6 +166,52 @@ class ControllerTest {
         double actualoutput = Controller.antalOrdinationerPrVægtPrLægemiddel(90,110,paracetamol);
 
         assertEquals(2,actualoutput,0.0001);
+    }
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddelTC2() {
+        Controller.setStorage(new Storage());
 
+        Lægemiddel paracetamol = Controller.opretLægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
+        Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
+
+        DagligFast HansOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Hans,paracetamol,2,1,1,0);
+        DagligFast PedroOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Pedro,paracetamol,2,1,1,0);
+
+
+        double actualoutput = Controller.antalOrdinationerPrVægtPrLægemiddel(60,90,paracetamol);
+
+        assertEquals(0,actualoutput,0.0001);
+    }
+
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddelTC3() {
+        Controller.setStorage(new Storage());
+
+        Lægemiddel paracetamol = Controller.opretLægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
+        Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
+
+        DagligFast HansOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Hans,paracetamol,2,1,1,0);
+        DagligFast PedroOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Pedro,paracetamol,2,1,1,0);
+
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> Controller.antalOrdinationerPrVægtPrLægemiddel(100,70,paracetamol));
+        assertEquals(exception.getMessage(),"vægtSlut må ikke være højere end vægtStart");
+    }
+    @Test
+    void antalOrdinationerPrVægtPrLægemiddelTC4() {
+        Controller.setStorage(new Storage());
+
+        Lægemiddel paracetamol = Controller.opretLægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
+        Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
+
+        DagligFast HansOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Hans,paracetamol,2,1,1,0);
+        DagligFast PedroOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Pedro,paracetamol,2,1,1,0);
+
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> Controller.antalOrdinationerPrVægtPrLægemiddel(-1,50,paracetamol));
+        assertEquals(exception.getMessage(),"vægtStart må ikke være negativ");
     }
 }

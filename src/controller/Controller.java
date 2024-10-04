@@ -116,6 +116,12 @@ public abstract class Controller {
     public static int antalOrdinationerPrVægtPrLægemiddel(
             double vægtStart, double vægtSlut, Lægemiddel lægemiddel) {
         int antalOrdinationer = 0;
+        if (vægtSlut < vægtStart) {
+            throw new  IllegalArgumentException("vægtSlut må ikke være højere end vægtStart");
+        }
+        if (vægtStart < 0) {
+            throw new IllegalArgumentException("vægtStart må ikke være negativ");
+        }
         for (Patient patient : getAllPatienter()) {
             if (patient.getVægt() >= vægtStart && patient.getVægt() <= vægtSlut) {
                 for (Ordination ordination : patient.getOrdinationer()) {
@@ -124,9 +130,8 @@ public abstract class Controller {
                     }
                 }
             }
-            return antalOrdinationer;
         }
-        return 0;
+        return antalOrdinationer;
     }
 
     public static List<Patient> getAllPatienter() {
