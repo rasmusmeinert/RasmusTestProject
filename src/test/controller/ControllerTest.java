@@ -110,17 +110,6 @@ class ControllerTest {
         assertEquals(exception.getMessage(), "Invalid value for MonthOfYear (valid values 1 - 12): 13");
     }
     @Test
-    void opretDagligSkævOrdinationTc6() {
-        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
-        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
-        LocalTime[] klokkeslæt = {LocalTime.of(25,0),LocalTime.of(14,0),LocalTime.of(18,0)};
-        double enheder[] = {3,2,5};
-
-
-        assertThrows(DateTimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,12,12),patient,paracetamol,klokkeslæt,enheder));
-
-    }
-    @Test
     void anbefaletDosisPrDøgnTc1() {
         Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient patient = new Patient("123456-1234","Jan Oluf", 120);

@@ -124,9 +124,8 @@ public abstract class Controller {
                     }
                 }
             }
-            return antalOrdinationer;
         }
-        return 0;
+        return antalOrdinationer;
     }
 
     public static List<Patient> getAllPatienter() {
