@@ -15,6 +15,7 @@ class DagligFastTest {
 
     @BeforeEach
     void setUp() {
+        
     }
 
     @Test

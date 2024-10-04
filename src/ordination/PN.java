@@ -3,6 +3,8 @@ package ordination;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class PN extends Ordination{
     private final double antalEnheder;
@@ -37,7 +39,13 @@ public class PN extends Ordination{
     }
     @Override
     public double døgnDosis() {
-        return ((antalGangeAnvendt()*getAntalEnheder()) / ChronoUnit.DAYS.between(datoForAnvendelse.get(0),datoForAnvendelse.get(datoForAnvendelse.size()-1)));
+        // Sorter den.
+        if (datoForAnvendelse.isEmpty()) {
+            return 0;
+        }else {
+            Collections.sort(datoForAnvendelse);
+            return ((antalGangeAnvendt() * getAntalEnheder()) / ChronoUnit.DAYS.between(datoForAnvendelse.get(0), datoForAnvendelse.get(datoForAnvendelse.size() - 1)));
+        }
     }
 
     @Override
