@@ -24,7 +24,7 @@ public abstract class Controller {
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double antal) {
         if (startDato.isAfter(slutDato)) {
-            throw new IllegalArgumentException("StartDato er efter SlutDato");
+            throw new IllegalArgumentException("startDato er efter slutDato");
         } else {
             PN pnOrdination = new PN(startDato, slutDato, lægemiddel, antal);
             patient.tilføjOrdination(pnOrdination);
@@ -43,7 +43,7 @@ public abstract class Controller {
             LocalDate startDato, LocalDate slutDato, Patient patient, Lægemiddel lægemiddel,
             double morgenAntal, double middagAntal, double aftenAntal, double natAntal) {
         if (startDato.isAfter(slutDato)) {
-            throw new IllegalArgumentException("StartDato er efter SlutDato");
+            throw new IllegalArgumentException("startDato er efter slutDato");
         } else {
             DagligFast dagligFastOrdination = new DagligFast(startDato, slutDato, lægemiddel);
             dagligFastOrdination.opretDosis(0, LocalTime.of(8, 0), morgenAntal);
@@ -78,7 +78,7 @@ public abstract class Controller {
             } else
                 throw new IllegalArgumentException("Klokkeslet og antal enheder forskellige.");
         } else
-            throw new IllegalArgumentException("Startdato er efter slutdato.");
+            throw new IllegalArgumentException("startDato er efter slutDato.");
     }
 
     /**
