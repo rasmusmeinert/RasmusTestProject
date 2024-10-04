@@ -54,9 +54,35 @@ class ControllerTest {
     }
 
     @Test
-    void anbefaletDosisPrDøgn() {
+    void anbefaletDosisPrDøgnTc1() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Jan Oluf", 120);
+        Patient patient2 = new Patient("456789-2345","Bille Jensen", 25);
+        Patient patient3 = new Patient("567890-3456","Flenning Jakke", 140);
+
+        double anbefaletDosis = Controller.anbefaletDosisPrDøgn(patient,paracetamol);
+
+        assertEquals(180,anbefaletDosis);
     }
 
+    @Test
+    void anbefaletDosisPrDøgnTc2() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("456789-2345","Bille Jensen", 25);
+
+        double anbefaletDosis = Controller.anbefaletDosisPrDøgn(patient,paracetamol);
+
+        assertEquals(25,anbefaletDosis);
+    }
+    @Test
+    void anbefaletDosisPrDøgnTc3() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("567890-3456","Flenning Jakke", 140);
+
+        double anbefaletDosis = Controller.anbefaletDosisPrDøgn(patient,paracetamol);
+
+        assertEquals(280,anbefaletDosis);
+    }
     @Test
     void antalOrdinationerPrVægtPrLægemiddel() {
     }
