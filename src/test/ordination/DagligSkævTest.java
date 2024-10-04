@@ -49,6 +49,7 @@ class DagligSkævTest {
 
         assertThrows(DateTimeException.class, () -> {
             dagligSkæv.opretDosis(LocalTime.of(25, 12), 3);
+
         });
     }
 
