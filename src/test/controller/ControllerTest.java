@@ -4,6 +4,7 @@ import controller.Controller;
 import ordination.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -86,6 +87,38 @@ class ControllerTest {
 
         Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),patient,paracetamol,klokkeslæt,enheder));
         assertEquals(exception.getMessage(), "Klokkeslet og antal enheder forskellige.");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc4() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5,2};
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "Klokkeslet og antal enheder forskellige.");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc5() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,13,12),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "Invalid value for MonthOfYear (valid values 1 - 12): 13");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc6() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(25,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+
+        assertThrows(DateTimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,12,12),patient,paracetamol,klokkeslæt,enheder));
+
     }
     @Test
     void anbefaletDosisPrDøgnTc1() {
