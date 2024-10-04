@@ -85,5 +85,13 @@ class ControllerTest {
     }
     @Test
     void antalOrdinationerPrVægtPrLægemiddel() {
+        Lægemiddel paracetamol = Controller.opretLægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
+        Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
+
+        double actualoutput = Controller.antalOrdinationerPrVægtPrLægemiddel(90,110,paracetamol);
+
+        assertEquals(2,actualoutput,0.0001);
+
     }
 }
