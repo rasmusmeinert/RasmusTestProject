@@ -29,7 +29,9 @@ public class DagligFast extends Ordination {
     public double døgnDosis() {
         double døgnDosis = 0;
         for (int i = 0; i < 4; i++) {
-            døgnDosis = doser[i].getAntal();
+            if (doser[i] != null){
+                døgnDosis += doser[i].getAntal();
+            }
         }
         return døgnDosis;
     }
