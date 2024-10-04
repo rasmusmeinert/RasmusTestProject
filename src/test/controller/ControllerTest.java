@@ -89,6 +89,10 @@ class ControllerTest {
         Patient Hans = Controller.opretPatient("123456-1234","Hans Hansen",93.5);
         Patient Pedro = Controller.opretPatient("123456-4322","Pedro Pascal",95);
 
+        DagligFast HansOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Hans,paracetamol,2,1,1,0);
+        DagligFast PedroOrdination = Controller.opretDagligFastOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),Pedro,paracetamol,2,1,1,0);
+
+
         double actualoutput = Controller.antalOrdinationerPrVægtPrLægemiddel(90,110,paracetamol);
 
         assertEquals(2,actualoutput,0.0001);
