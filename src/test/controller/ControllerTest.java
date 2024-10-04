@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,6 +52,12 @@ class ControllerTest {
     }
     @Test
     void opretDagligSkævOrdination() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        int enheder[] = {3,2,5};
+
+        
     }
 
     @Test
