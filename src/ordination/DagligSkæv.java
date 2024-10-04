@@ -15,8 +15,12 @@ public class DagligSkæv extends Ordination {
     }
 
     public void opretDosis(LocalTime tid, double antal) {
-        Dosis dosis = new Dosis(tid, antal);
-        doser.add(dosis);
+        if (antal > 0) {
+            Dosis dosis = new Dosis(tid, antal);
+            doser.add(dosis);
+        } else {
+            throw new IllegalArgumentException("Antal skal være større end 0.");
+        }
     }
 
     public List<Dosis> getDoser() {
