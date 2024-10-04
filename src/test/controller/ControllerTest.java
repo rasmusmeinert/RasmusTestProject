@@ -1,14 +1,13 @@
 package test.controller;
 
 import controller.Controller;
-import ordination.DagligFast;
-import ordination.Dosis;
-import ordination.Lægemiddel;
-import ordination.Patient;
+import ordination.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,9 +49,77 @@ class ControllerTest {
         assertEquals(exception.getMessage(), "Invalid date 'FEBRUARY 31'");
     }
     @Test
-    void opretDagligSkævOrdination() {
+    void opretDagligSkævOrdinationTc1() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+        DagligSkæv dagligSkæv = Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),patient,paracetamol,klokkeslæt,enheder);
+
+
+        assertEquals(LocalDate.of(1995,2,7), dagligSkæv.getStartDato());
+        assertEquals(LocalDate.of(1995,2,12),dagligSkæv.getSlutDato());
+        assertEquals(paracetamol,dagligSkæv.getLaegemiddel());
+        assertEquals(dagligSkæv,patient.getOrdinationer().getFirst());
+        assertEquals(3,dagligSkæv.getDoser().get(0).getAntal());
+        assertEquals(2,dagligSkæv.getDoser().get(1).getAntal());
+        assertEquals(5,dagligSkæv.getDoser().get(2).getAntal());
     }
 
+    @Test
+    void opretDagligSkævOrdinationTc2() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,2),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "startDato er efter slutDato.");
+    }
+
+    @Test
+    void opretDagligSkævOrdinationTc3() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0),LocalTime.of(20,0)};
+        double enheder[] = {3,2,5};
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "Klokkeslet og antal enheder forskellige.");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc4() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5,2};
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,2,12),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "Klokkeslet og antal enheder forskellige.");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc5() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(12,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+
+        Exception exception = assertThrows(RuntimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,13,12),patient,paracetamol,klokkeslæt,enheder));
+        assertEquals(exception.getMessage(), "Invalid value for MonthOfYear (valid values 1 - 12): 13");
+    }
+    @Test
+    void opretDagligSkævOrdinationTc6() {
+        Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient patient = new Patient("123456-1234","Hans Hansen", 83.5);
+        LocalTime[] klokkeslæt = {LocalTime.of(25,0),LocalTime.of(14,0),LocalTime.of(18,0)};
+        double enheder[] = {3,2,5};
+
+
+        assertThrows(DateTimeException.class, () -> Controller.opretDagligSkævOrdination(LocalDate.of(1995,2,7),LocalDate.of(1995,12,12),patient,paracetamol,klokkeslæt,enheder));
+
+    }
     @Test
     void anbefaletDosisPrDøgnTc1() {
         Lægemiddel paracetamol = new Lægemiddel("Paracetamol", 1, 1.5, 2, "Ml");
